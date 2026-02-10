@@ -3,7 +3,7 @@ import { z } from "zod/v4";
 
 const envSchema = z.object({
   GITHUB_TOKEN: z.string().min(1, "GITHUB_TOKEN is required"),
-  LLM_PROVIDER: z.enum(["anthropic", "openai"]).default("anthropic"),
+  LLM_PROVIDER: z.enum(["anthropic", "openai", "claude-code"]).default("anthropic"),
   ANTHROPIC_API_KEY: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   LLM_MODEL: z.string().optional(),

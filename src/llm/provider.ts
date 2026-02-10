@@ -8,6 +8,6 @@ export interface LlmProvider {
 }
 
 export interface LlmProviderOptions {
-  apiKey: string;
+  apiKey?: string;
   model?: string;
 }

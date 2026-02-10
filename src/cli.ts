@@ -13,6 +13,7 @@ import { generateNarratives } from "./llm/narrative-generator.js";
 import { exportMarkdown } from "./export/markdown.js";
 import { AnthropicProvider } from "./llm/anthropic.js";
 import { OpenAIProvider } from "./llm/openai.js";
+import { ClaudeCodeProvider } from "./llm/claude-code.js";
 import { writePrIndex } from "./storage/storage.js";
 import type { LlmProvider } from "./llm/provider.js";
 import type { PrIndex } from "./types/pr.js";
@@ -22,6 +23,11 @@ function createLlmProvider(): LlmProvider {
   if (config.LLM_PROVIDER === "anthropic") {
     return new AnthropicProvider({
       apiKey: config.ANTHROPIC_API_KEY!,
+      model: config.LLM_MODEL,
+    });
+  }
+  if (config.LLM_PROVIDER === "claude-code") {
+    return new ClaudeCodeProvider({
       model: config.LLM_MODEL,
     });
   }

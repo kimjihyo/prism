@@ -23,7 +23,13 @@ interface Cluster {
 }
 
 function parseJson<T>(raw: string): T {
-  const jsonStr = raw.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+  let jsonStr = raw.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+  // Handle cases where model wraps JSON in surrounding text
+  const firstBracket = jsonStr.search(/[\[{]/);
+  const lastBracket = Math.max(jsonStr.lastIndexOf("}"), jsonStr.lastIndexOf("]"));
+  if (firstBracket !== -1 && lastBracket !== -1) {
+    jsonStr = jsonStr.slice(firstBracket, lastBracket + 1);
+  }
   return JSON.parse(jsonStr) as T;
 }
 

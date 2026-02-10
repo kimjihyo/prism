@@ -8,7 +8,7 @@
 GitHub API ──→ Collectors ──→ Storage (JSONL/JSON/diff)
                                   │
                                   ▼
-                         LLM (Claude/OpenAI)
+                         LLM (Claude Code/Claude API/OpenAI)
                                   │
                           ┌───────┴───────┐
                           ▼               ▼
@@ -38,14 +38,30 @@ cp .env.example .env
 # Edit .env with your tokens
 ```
 
+### Using Claude Code CLI (Claude Max/Pro)
+
+If you have a Claude Max/Pro subscription (no API key), you can use the Claude Code CLI as the LLM provider:
+
+```bash
+# Install Claude Code CLI
+npm install -g @anthropic-ai/claude-code
+
+# Login (run once)
+claude
+
+# Set provider in .env
+LLM_PROVIDER=claude-code
+# No ANTHROPIC_API_KEY needed!
+```
+
 ### Required Environment Variables
 
 | Variable | Description |
 |---|---|
 | `GITHUB_TOKEN` | GitHub Personal Access Token |
-| `LLM_PROVIDER` | `anthropic` or `openai` (default: `anthropic`) |
-| `ANTHROPIC_API_KEY` | Required if provider is `anthropic` |
-| `OPENAI_API_KEY` | Required if provider is `openai` |
+| `LLM_PROVIDER` | `anthropic`, `openai`, or `claude-code` (default: `anthropic`) |
+| `ANTHROPIC_API_KEY` | Required if provider is `anthropic` (not needed for `claude-code`) |
+| `OPENAI_API_KEY` | Required if provider is `openai` (not needed for `claude-code`) |
 
 ### Optional Variables
 

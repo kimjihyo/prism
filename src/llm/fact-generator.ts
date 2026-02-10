@@ -56,8 +56,13 @@ export async function generateFactCards(
       { role: "user", content: userPrompt },
     ]);
 
-    // Extract JSON from response (handle markdown code blocks)
-    const jsonStr = raw.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+    // Extract JSON from response (handle markdown code blocks and surrounding text)
+    let jsonStr = raw.replace(/```json?\n?/g, "").replace(/```\n?/g, "").trim();
+    const firstBrace = jsonStr.indexOf("{");
+    const lastBrace = jsonStr.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace !== -1) {
+      jsonStr = jsonStr.slice(firstBrace, lastBrace + 1);
+    }
 
     try {
       const parsed = JSON.parse(jsonStr);
